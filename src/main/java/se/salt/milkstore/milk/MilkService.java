@@ -2,6 +2,7 @@ package se.salt.milkstore.milk;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import se.salt.milkstore.milk.dto.MilkTypeDTO;
 import se.salt.milkstore.milk.dto.UpdateMilkDTO;
 
 import java.util.List;
@@ -28,5 +29,9 @@ public class MilkService {
         Milk milk = findById(updateMilkDTO.id());
         milk.setStorage(updateMilkDTO.storage());
         return saveMilk(milk);
+    }
+
+    public List<Milk> getByTypes(MilkTypeDTO milkTypeDTO) {
+        return getAllMilk().stream().filter(milk -> milkTypeDTO.types().contains(milk.getType())).toList();
     }
 }

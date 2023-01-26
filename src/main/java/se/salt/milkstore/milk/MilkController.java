@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import se.salt.milkstore.milk.dto.MilkTypeDTO;
 import se.salt.milkstore.milk.dto.UpdateMilkDTO;
 
 import java.net.URI;
@@ -14,6 +15,7 @@ import java.util.NoSuchElementException;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/milk")
 public class MilkController {
     @Autowired
@@ -22,6 +24,11 @@ public class MilkController {
     @GetMapping
     ResponseEntity getAllMilk() {
         return ResponseEntity.ok(milkService.getAllMilk());
+    }
+
+    @GetMapping("/filter")
+    ResponseEntity getMilkByTypes (@RequestBody MilkTypeDTO milkTypeDTO) {
+        return ResponseEntity.ok(milkService.getByTypes(milkTypeDTO));
     }
 
     @PostMapping("/list")
